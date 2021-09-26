@@ -1,0 +1,40 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.service'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+ext {
+    set('springCloudVersion', "2020.0.3")
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.service.currency.AppApplication'
+    }
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-maven-plugin', version: '2.5.5'
+
+}
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+test {
+    useJUnitPlatform()
+}
+
